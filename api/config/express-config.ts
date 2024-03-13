@@ -21,5 +21,5 @@ app.use(express.urlencoded({
 
 app.use(express.json());
 
-import { router as usersRouter } from '../src/domains/usuario/controllers/index';
-app.use('/api/users', usersRouter);
+//import { router as usersRouter } from '../src/domains/usuario/controllers/index';
+//app.use('/api/users', usersRouter);

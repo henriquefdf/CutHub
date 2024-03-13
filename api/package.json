@@ -17,6 +17,11 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.4.2"
   },
+  "scripts": {
+    "start": "nodemon index.ts",
+    "dev": "nodemon index.ts",
+    "test": "jest"
+  },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
