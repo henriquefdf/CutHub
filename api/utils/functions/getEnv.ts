@@ -1,9 +1,9 @@
-export function getEnv(name: string): any {
-    const value = process.env[name];
+export function getEnv(nome: string): any {
+    const valor = process.env[nome];
     
-   if (!value) {
-      throw new Error(`Faltando: process.env['${name}'].`);
-   }
+    if (!valor) {
+        throw new Error(`Faltando: process.env['${nome}'].`);
+    }
     
-    return value;
-  }
+    return valor;
+}
