@@ -8,17 +8,22 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.11.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.11.26",
+    "axios": "^1.6.7",
+    "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
+    "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.2"
   },
   "scripts": {
-    "start": "nodemon index.ts",
+    "start": "npx prisma migrate deploy && nodemon index.ts",
     "dev": "nodemon index.ts",
     "test": "jest"
   },
