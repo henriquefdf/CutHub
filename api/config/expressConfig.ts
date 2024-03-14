@@ -1,10 +1,13 @@
-import dotenv from 'dotenv';
 import express, { Express } from 'express';
 import cors, { CorsOptions } from 'cors';
 import cookieParser from 'cookie-parser';
 import { getEnv } from '../utils/functions/getEnv';
+import 'dotenv/config';
 
-dotenv.config();
+import usuariosRouter from '../src/domains/usuario/controllers';
+
+
+
 export const app: Express = express();
 
 const options: CorsOptions = {
@@ -21,5 +24,4 @@ app.use(express.urlencoded({
 
 app.use(express.json());
 
-//import { router as usersRouter } from '../src/domains/usuario/controllers/index';
-//app.use('/api/users', usersRouter);
+app.use('/api/usuarios', usuariosRouter);
