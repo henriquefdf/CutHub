@@ -14,62 +14,97 @@ import {
   FormMessage,
 } from "@/app/_components/ui/form"
 import { Input } from "@/app/_components/ui/input"
+import Image from "next/image";
 
 const loginSchema = z.object({
-  username: z.string().min(2, { message: "Username must be at least 2 characters long." }),
+  email: z.string().min(2, { message: "Username must be at least 2 characters long." }),
   password: z.string().min(6, { message: "Password must be at least 6 characters long." }),
 });
 
 type LoginFormInputs = z.infer<typeof loginSchema>;
 
-export function LoginForm() {
+export function LoginForm({}) {
 
 
   const form = useForm<LoginFormInputs>({
     resolver: zodResolver(loginSchema),
   });
 
- const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
+  const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
     console.log(data);
     //TODO: CONECTAR COM O BACKEND
   };
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter your username" {...field} />
-              </FormControl>
-              <FormDescription>
-                Please enter your username.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="Enter your password" {...field} />
-              </FormControl>
-              <FormDescription>
-                Your password must be at least 6 characters long.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Login</Button>
-      </form>
-    </Form>
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="flex flex-col items-center gap-3">
+        <Image src="/logo.png" alt="Logo" width={250} height={22} className="mb-5" />
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem className="mb-4 w-full">
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Insira seu email"
+                      {...field}
+                      className='p-2 w-full'
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem className="mb-4 w-full">
+                  <FormLabel>Senha</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder="Insira sua senha"
+                      {...field}
+                      className='p-2 w-full'
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button variant="default" type="submit" className="w-full mt-4"> {/* Botão estilizado para ocupar a largura total */}
+              Login
+            </Button>
+
+
+            <div className="text-center mt-3">
+              <a href="/forgot-password" className="text-gray-400 text-sm">
+                Esqueci minha senha
+              </a>
+            </div>
+
+            {/* Divisão opcional */}
+            <div className="my-4">
+              <hr className="border-t border-muted" />
+            </div>
+
+            <div className="text-center">
+              <span className="text-muted-foreground text-sm">
+                Não possui cadastro?
+              </span>
+              {' '}
+              <a href="/register" className="text-primary-foreground text-sm font-medium">
+                Cadastre-se agora
+              </a>
+            </div>
+
+
+          </form>
+        </Form>
+      </div>
+    </div>
   );
 }
