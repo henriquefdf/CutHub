@@ -18,22 +18,27 @@ A aplicação oferece ferramentas para adicionar serviços, gerenciar reservas, 
 
 # Backlog do Produto
 
-## Como cliente:
-
-- Adicionar/deletar/editar/visualizar reservas
+## Como Visitante:
+- Vizualizar as opções de barbearias e seus serviços
 - Filtrar por nome as barbearias disponíveis
+- Criar uma conta
+
+## Como Usuário Cadastrado:
 - Fazer login/logout
 - Adicionar/deletar/editar conta
 - Recuperar senha
+
+## Como cliente:
+- Adicionar/deletar/editar/visualizar reservas
+- Vizualizar as opções de barbearias e seus serviços
+- Filtrar por nome as barbearias disponíveis
 - Avaliar barbearia
 - Adicionar comentários sobre a barbearia
 
 ## Como dono da barbearia:
-
 - Adicionar/deletar/editar serviços
 - Gerenciar agenda disponível
 - Cancelar reserva
-- Recuperar senha
 - Visualizar dashboard das avaliações
 - Gerar relatório financeiro
 - Adicionar barbeiros na barbearia
@@ -48,12 +53,17 @@ A aplicação oferece ferramentas para adicionar serviços, gerenciar reservas, 
 - CRUD da reserva
 - CRUD do serviço
 
+# Kanban
+[Link do Kanban](https://www.notion.so/Kanban-CutHub-cff5e7e939be4874a8adb803ac55cd1f?pvs=4)
+
 # Tecnologias
 
 ## Front:
 
 - Next.js 14.0
 - Shadcn
+- Tailwind css
+- TypeScript
 
 ## Back:
 
