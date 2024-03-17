@@ -25,7 +25,6 @@ class UsuarioService {
 
         const novoUsuario = await prisma.usuario.create({
             data: { 
-                id: body.id,
                 nome: body.nome,
                 email: body.email,
                 senha: body.senha,
