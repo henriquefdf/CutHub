@@ -1,3 +1,8 @@
+# Integrantes
+- Arthur Linhares (back-end)
+- Henrique Freitas (back-end)
+- Marcelo Mrad (front-end)
+
 # Propósito da Aplicação
 
 A aplicação proposta visa facilitar tanto clientes quanto donos de barbearias na gestão e agendamento de serviços. 
@@ -13,22 +18,43 @@ A aplicação oferece ferramentas para adicionar serviços, gerenciar reservas, 
 
 # Backlog do Produto
 
-## Como cliente:
-
-- Agendar serviços de barbearias (objetivo)
-- Selecionar o tipo de serviço e agendar a reserva
+## Como Visitante:
+- Vizualizar as opções de barbearias e seus serviços
 - Filtrar por nome as barbearias disponíveis
-- Cancelar reserva
-- Fazer login
-- Fazer logout
-- Criar conta
+- Criar uma conta
+
+## Como Usuário Cadastrado:
+- Fazer login/logout
+- Adicionar/deletar/editar conta
+- Recuperar senha
+
+## Como cliente:
+- Adicionar/deletar/editar/visualizar reservas
+- Vizualizar as opções de barbearias e seus serviços
+- Filtrar por nome as barbearias disponíveis
+- Avaliar barbearia
+- Adicionar comentários sobre a barbearia
 
 ## Como dono da barbearia:
-
-- Adicionar serviços
-- Gerenciar reserva
+- Adicionar/deletar/editar serviços
+- Gerenciar agenda disponível
 - Cancelar reserva
-- Remover serviço
+- Visualizar dashboard das avaliações
+- Gerar relatório financeiro
+- Adicionar barbeiros na barbearia
+- Visualizar dashboard de reservas
+
+# Backlog da Sprint
+
+- Fazer configuração inicial do Node/Express/Prisma/Docker-Compose/Next/Tailwind css
+- Fazer rota login/logout
+- Criar metódo de recuperação de senha
+- CRUD do usuário
+- CRUD da reserva
+- CRUD do serviço
+
+# Kanban
+[Link do Kanban](https://www.notion.so/Kanban-CutHub-cff5e7e939be4874a8adb803ac55cd1f?pvs=4)
 
 # Tecnologias
 
@@ -36,6 +62,8 @@ A aplicação oferece ferramentas para adicionar serviços, gerenciar reservas, 
 
 - Next.js 14.0
 - Shadcn
+- Tailwind css
+- TypeScript
 
 ## Back:
 
@@ -44,4 +72,5 @@ A aplicação oferece ferramentas para adicionar serviços, gerenciar reservas, 
 - Express
 - Prisma
 - Docker (Banco de Dados → MySQL)
-- [Diagrama do Banco de Dados](https://dbdiagram.io/d/65b91aedac844320ae0e3200)
+  
+## [Diagrama do Banco de Dados](https://dbdiagram.io/d/65b91aedac844320ae0e3200)
