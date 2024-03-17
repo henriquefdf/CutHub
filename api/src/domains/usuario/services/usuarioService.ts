@@ -14,7 +14,7 @@ class UsuarioService {
         return await hash(password, saltRounds);
     }
 
-    
+
     async criar(body: Usuario,) {
 
         if(await prisma.usuario.findUnique({ where: { email: body.email } })) {
@@ -34,6 +34,19 @@ class UsuarioService {
         });
         return novoUsuario;
     }
+
+    async getUsuario(id: string) {
+        const usuario = await prisma.usuario.findUnique({
+            where: { id: +id }
+        });
+        return usuario;
+    }
+
+    async getListaUsuarios() {
+        const usuarios = await prisma.usuario.findMany();
+        return usuarios;
+    }
+
 }
 
 

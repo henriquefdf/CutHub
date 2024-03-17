@@ -17,4 +17,23 @@ router.post('/criar', async (req: Request, res: Response, next: NextFunction) =>
     }
 })
 
+
+router.get('/minhaconta/:id', verifyJWT, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const usuario = await usuarioService.getUsuario(req.params.id);
+        res.status(200).json(usuario);
+    } catch (error) {
+        next(error);
+    }
+})
+
+router.get('/lista', verifyJWT, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const usuarios = await usuarioService.getListaUsuarios();
+        res.status(200).json(usuarios);
+    } catch (error) {
+        next(error);
+    }
+})
+
 export default router;
