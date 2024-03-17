@@ -46,7 +46,7 @@ A aplicação oferece ferramentas para adicionar serviços, gerenciar reservas, 
 
 # Backlog da Sprint
 
-- Fazer configuração inicial do Node/Express/Prisma/Docker-Compose
+- Fazer configuração inicial do Node/Express/Prisma/Docker-Compose/Next/Tailwind css
 - Fazer rota login/logout
 - Criar metódo de recuperação de senha
 - CRUD do usuário
