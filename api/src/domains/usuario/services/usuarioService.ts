@@ -35,9 +35,9 @@ class UsuarioService {
         return novoUsuario;
     }
 
-    async getUsuario(id: string) {
+    async getUsuario(id: number) {
         const usuario = await prisma.usuario.findUnique({
-            where: { id: +id }
+            where: { id: id }
         });
         return usuario;
     }

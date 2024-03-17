@@ -18,9 +18,9 @@ router.post('/criar', async (req: Request, res: Response, next: NextFunction) =>
 })
 
 
-router.get('/minhaconta/:id', verifyJWT, async (req: Request, res: Response, next: NextFunction) => {
+router.get('/minhaconta', verifyJWT, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const usuario = await usuarioService.getUsuario(req.params.id);
+        const usuario = await usuarioService.getUsuario(req.Usuario?.id as number);
         res.status(200).json(usuario);
     } catch (error) {
         next(error);
