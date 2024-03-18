@@ -1,7 +1,7 @@
 # Integrantes
 - Arthur Linhares (back-end)
 - Henrique Freitas (back-end)
-- Marcelo Mrad (front-end)
+- Marcelo Mrad (fullstack)
 
 # Propósito da Aplicação
 
@@ -43,6 +43,7 @@ A aplicação oferece ferramentas para adicionar serviços, gerenciar reservas, 
 - Gerar relatório financeiro
 - Adicionar barbeiros na barbearia
 - Visualizar dashboard de reservas
+- Adicionar uma nova barbearia ao sistema
 
 # Backlog da Sprint
 
@@ -52,6 +53,7 @@ A aplicação oferece ferramentas para adicionar serviços, gerenciar reservas, 
 - CRUD do usuário
 - CRUD da reserva
 - CRUD do serviço
+- Criação da barbearia
 
 # Kanban
 [Link do Kanban](https://www.notion.so/Kanban-CutHub-cff5e7e939be4874a8adb803ac55cd1f?pvs=4)
