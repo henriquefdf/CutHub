@@ -7,7 +7,6 @@ import { TokenError } from '../../errors/TokenError';
 import { Usuario } from '@prisma/client';
 import prisma from '../../config/prismaClient';
 import { getEnv } from '../../utils/functions/getEnv';
-import { error } from 'console';
 import { loginError } from '../../errors/loginError';
 
 
@@ -27,10 +26,7 @@ function generateJWT(Usuario: Usuario, res: Response) {
 
     const token = sign({ Usuario: body }, getEnv('SECRET_KEY') || '', { expiresIn: getEnv('JWT_EXPIRATION') });
     
-    res.cookie('jwt', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV !== 'development',
-    });
+    return token;
 }
 
 function cookieExtractor(req: Request) {
@@ -50,9 +46,9 @@ export async function loginMiddleware(req: Request, res: Response, next: NextFun
             throw new InvalidParamError('E-mail e/ou senha incorretos!');
         }
 
-        generateJWT(Usuario, res);
+        const token = generateJWT(Usuario, res);
 
-        res.status(200).json('Login realizado com sucesso!');
+        res.status(200).send({ token, Usuario })
     } catch (error) {
         next(error);
     }
