@@ -1,6 +1,8 @@
 "use client";
 
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useContext } from "react";
+import { AuthContext } from "@/app/_contexts/AuthContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/app/_components/ui/button"
@@ -17,22 +19,21 @@ import { Input } from "@/app/_components/ui/input"
 import Image from "next/image";
 
 const loginSchema = z.object({
-  email: z.string().min(2, { message: "Username must be at least 2 characters long." }),
-  password: z.string().min(6, { message: "Password must be at least 6 characters long." }),
+  email: z.string().email({ message: "Tipo de email inválido" }),
+  senha: z.string().min(6, { message: "Senha deve ser maior que 6" }),
 });
 
 type LoginFormInputs = z.infer<typeof loginSchema>;
 
-export function LoginForm({}) {
-
+export function LoginForm() {
+  const { signIn } = useContext(AuthContext);
 
   const form = useForm<LoginFormInputs>({
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
-    console.log(data);
-    //TODO: CONECTAR COM O BACKEND
+  const onSubmit : SubmitHandler<LoginFormInputs> = async (data) => {
+    await signIn(data);
   };
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -59,7 +60,7 @@ export function LoginForm({}) {
             />
             <FormField
               control={form.control}
-              name="password"
+              name="senha"
               render={({ field }) => (
                 <FormItem className="mb-4 w-full">
                   <FormLabel>Senha</FormLabel>
