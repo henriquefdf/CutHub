@@ -1,8 +1,10 @@
 import { Button } from "@/app/_components/ui/button";
 import { Card, CardContent } from "@/app/_components/ui/card";
 import { Badge } from "@/app/_components/ui/badge";
-import {  StarIcon } from "lucide-react";
+import { StarIcon } from "lucide-react";
 import Image from "next/image";
+
+import { useRouter } from "next/navigation";
 
 import { Barbershop } from "@/app/_services/types";
 
@@ -12,8 +14,14 @@ interface BarbershopItemProps {
 }
 
 
-const BarbershopItem = ({barbershop}: BarbershopItemProps) => {
-    return ( 
+const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
+
+    const router = useRouter();
+    const handleBookingClick = () => {
+        router.push(`/barbershops/${barbershop.id}`);
+    }
+
+    return (
         <Card className="min-w-[167px] max-w-[167px] rounded-2xl">
             <CardContent className="px-1 py-0">
                 <div className="w-full h-[159px] relative">
@@ -26,8 +34,8 @@ const BarbershopItem = ({barbershop}: BarbershopItemProps) => {
                     </div>
                     <Image
                         alt={barbershop.nome}
-                        src = {barbershop.imageUrl}
-                        style = {{
+                        src={barbershop.imageUrl}
+                        style={{
                             objectFit: "cover",
                         }}
                         fill
@@ -39,12 +47,17 @@ const BarbershopItem = ({barbershop}: BarbershopItemProps) => {
                 <div className="px-2 pb-3">
                     <h2 className="font-bold mt-2 overflow-hidden text-ellipsis text-nowrap">{barbershop.nome}</h2>
                     <p className="text-sm text-gray-400 overflow-hidden text-ellipsis text-nowrap">{barbershop.endereco}</p>
-                    <Button variant="secondary" className="w-full mt-3"> Reservar</Button>
+                    <Button
+                        variant="secondary"
+                        className="w-full mt-3"
+                        onClick={handleBookingClick} >
+                        Reservar
+                    </Button>
                 </div>
 
             </CardContent>
         </Card>
-     );
+    );
 }
 
 export default BarbershopItem;
