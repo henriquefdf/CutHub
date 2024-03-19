@@ -45,7 +45,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         async function fetchUserData() {
           try {
             const { 'jwt': token } = parseCookies();
-            console.log(token)
+
             if (token) {
               const userData = await recoverUserInformation(); 
                 
