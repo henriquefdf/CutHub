@@ -1,4 +1,4 @@
 export const usuarioTipo ={
-    DONA_BARBEARIA: 'DONA_BARBEARIA',
+    DONO_BARBEARIA: 'DONO_BARBEARIA',
     CLIENTE: 'CLIENTE'
 }
