@@ -6,12 +6,12 @@ import { Barbearia } from "@prisma/client";
 
 export class barbeariaService {
     
-    async criarBarbearia(body: Barbearia, idUsuario: number) {
+    async criarBarbearia(body: Barbearia, idUsuario: number, file:any) {
           const novaBarbearia = await prisma.barbearia.create({
             data: {
               nome: body.nome,
               endereco: body.endereco,
-              foto: body.foto,
+              foto: (file as Express.MulterS3.File).location,
               usuarioId: idUsuario,
             },
           });
@@ -19,7 +19,7 @@ export class barbeariaService {
           return novaBarbearia;
       }
     
-    async editarBarbearia(body: Barbearia, idUsuario: number) {
+    async editarBarbearia(body: Barbearia, idUsuario: number, file: any) {
         const barbearia = await prisma.barbearia.findUnique({
           where: { id: +body.id }
         });
@@ -33,7 +33,7 @@ export class barbeariaService {
             data: {
                 nome: body.nome,
                 endereco: body.endereco,
-                foto: body.foto,
+                foto: (file as Express.MulterS3.File).location,
             }
         });
 
