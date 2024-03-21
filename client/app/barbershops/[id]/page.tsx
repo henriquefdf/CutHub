@@ -1,7 +1,3 @@
-import { Button } from "@/app/_components/ui/button";
-import { ChevronLeftIcon, MapPin, MenuIcon, StarIcon } from "lucide-react";
-import Image from "next/image";
-
 import BarbershopInfo from "./_components/barbershop-info";
 import ServiceItem from "./_components/service-item";
 

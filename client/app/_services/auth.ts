@@ -26,3 +26,11 @@ export async function recoverUserInformation() {
     throw new Error('Erro ao recuperar informações do usuário');
   }
 }
+
+export async function logout() {
+  try {
+    await api.post('/usuarios/logout');
+  } catch (error) {
+    throw new Error('Erro ao fazer logout');
+  }
+}
