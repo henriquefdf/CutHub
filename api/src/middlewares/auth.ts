@@ -25,6 +25,8 @@ function generateJWT(Usuario: Usuario, res: Response) {
     };
 
     const token = sign({ Usuario: body }, getEnv('SECRET_KEY') || '', { expiresIn: getEnv('JWT_EXPIRATION') });
+
+    res.cookie('jwt', token);
     
     return token;
 }
@@ -48,7 +50,7 @@ export async function loginMiddleware(req: Request, res: Response, next: NextFun
 
         const token = generateJWT(Usuario, res);
 
-        res.status(200).send({ token, Usuario })
+        res.status(200).send({ token })
     } catch (error) {
         next(error);
     }
