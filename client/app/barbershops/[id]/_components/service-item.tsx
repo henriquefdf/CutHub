@@ -2,12 +2,25 @@ import { Button } from "@/app/_components/ui/button";
 import { Card, CardContent } from "@/app/_components/ui/card";
 import { Service } from "@/app/_services/types";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface ServiceItemProps {
     service: Service
+    isAutencticated: boolean
 }
 
-const ServiceItem = ({service}:ServiceItemProps ) => {
+const ServiceItem = ({ service, isAutencticated }:ServiceItemProps ) => {
+
+    const router = useRouter()
+
+    const handleBookingClick = () => {
+        if(!isAutencticated) {
+            router.push('/login')
+        }
+    }
+
+
+
     return ( 
         <Card>
             <CardContent className ="p-3">
@@ -31,7 +44,7 @@ const ServiceItem = ({service}:ServiceItemProps ) => {
                                     style: 'currency', 
                                     currency: 'BRL'
                                     }).format(service.price)}</p>
-                            <Button variant="secondary">
+                            <Button variant="secondary" onClick={handleBookingClick}  >
                                 Reservar
                             </Button>
                         </div>
