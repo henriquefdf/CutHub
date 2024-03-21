@@ -1,6 +1,4 @@
-import { Prisma, Usuario } from "@prisma/client";
 import prisma from "../../../../config/prismaClient";
-import { QueryError } from "../../../../errors/QueryError";
 import { NotAuthorizedError } from "../../../../errors/NotAuthorizedError";
 import { Barbearia } from "@prisma/client";
 
@@ -20,10 +18,10 @@ export class barbeariaService {
       }
     
     async editarBarbearia(body: Barbearia, idUsuario: number, file: any) {
-        const barbearia = await prisma.barbearia.findUnique({
-          where: { id: +body.id }
+        const barbearia = await prisma.barbearia.findFirst({
+          where: { usuarioId: +idUsuario }
         });
-      
+
         if(barbearia?.usuarioId !== idUsuario) {
             throw new NotAuthorizedError('Usuário não autorizado.');
         }

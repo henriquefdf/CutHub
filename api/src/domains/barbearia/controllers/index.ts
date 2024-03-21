@@ -9,12 +9,12 @@ import { upload } from '../../../../utils/functions/aws';
 const router = Router();
 
 router.post('/criar', 
-    //verifyJWT,
-    //checkTipo(usuarioTipo.DONO_BARBEARIA),
+    verifyJWT,
+    checkTipo(usuarioTipo.DONO_BARBEARIA),
     upload.single('foto'),
     async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const novaBarbearia = await barbeariaService.criarBarbearia(req.body, /*req.Usuario!.id*/ 5, req.file);
+            const novaBarbearia = await barbeariaService.criarBarbearia(req.body, req.Usuario!.id, req.file);
             res.status(codigoStatus.CRIADO).json(novaBarbearia);
         } catch (error) {
             next(error);
@@ -22,12 +22,12 @@ router.post('/criar',
 })
 
 router.put('/editar',
-    //verifyJWT,
-    //checkTipo(usuarioTipo.DONO_BARBEARIA),
+    verifyJWT,
+    checkTipo(usuarioTipo.DONO_BARBEARIA),
     upload.single('foto'),
     async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const barbeariaAtualizada = await barbeariaService.editarBarbearia(req.body, /*req.Usuario!.id*/ 5, req.file);
+            const barbeariaAtualizada = await barbeariaService.editarBarbearia(req.body, req.Usuario!.id, req.file);
             res.status(codigoStatus.SUCESSO).json(barbeariaAtualizada);
         } catch (error) {
             next(error);

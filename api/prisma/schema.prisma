@@ -1,5 +1,3 @@
-
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,17 +7,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Usuario {
-  id          Int          @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   nome        String
-  email       String       @unique
+  email       String      @unique
   tipo        String
   senha       String
-  foto        String?      // URL da foto do usuário
-  tokenRecPass String?     @unique @db.VarChar(255)
-  dateRecPass DateTime?    @db.DateTime(3)
-  barbearias  Barbearia[]
+  foto        String?     // URL da foto do usuário
+  tokenRecPass String?    @unique @db.VarChar(255)
+  dateRecPass DateTime?   @db.DateTime(3)
+  barbearia   Barbearia?  // Alterado para ser um relacionamento um-para-um
 }
 
 model Barbearia {
@@ -27,6 +24,6 @@ model Barbearia {
   nome       String
   endereco   String
   foto       String?  // URL da foto da barbearia
-  usuarioId  Int
+  usuarioId  Int      @unique // Garante que a relação seja um-para-um
   usuario    Usuario  @relation(fields: [usuarioId], references: [id])
 }
