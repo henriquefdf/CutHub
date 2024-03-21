@@ -1,4 +1,4 @@
-export const statusCodes = {
+export const codigoStatus = {
     SUCESSO: 200,
     CRIADO: 201,
     ACEITO: 202,

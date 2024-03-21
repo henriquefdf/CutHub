@@ -5,7 +5,7 @@ import { getEnv } from '../utils/functions/getEnv';
 import 'dotenv/config';
 
 import usuariosRouter from '../src/domains/usuario/controllers';
-
+import barbeariaRouter from '../src/domains/barbearia/controllers';
 
 
 export const app: Express = express();
@@ -25,3 +25,4 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 app.use('/api/usuarios', usuariosRouter);
+app.use('/api/barbearias', barbeariaRouter);
