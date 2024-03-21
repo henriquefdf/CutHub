@@ -9,13 +9,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model Usuario {
-  id       Int      @id @default(autoincrement())
-  nome    String
-  email   String    @unique
-  tipo    String
-  senha   String
-  foto    String? //URL da foto do usuário
-  tokenRecPass String?    @unique @db.VarChar(255)
-  dateRecPass  DateTime?  @db.DateTime(3)
+  id          Int          @id @default(autoincrement())
+  nome        String
+  email       String       @unique
+  tipo        String
+  senha       String
+  foto        String?      // URL da foto do usuário
+  tokenRecPass String?     @unique @db.VarChar(255)
+  dateRecPass DateTime?    @db.DateTime(3)
+  barbearias  Barbearia[]
+}
+
+model Barbearia {
+  id         Int      @id @default(autoincrement())
+  nome       String
+  endereco   String
+  foto       String?  // URL da foto da barbearia
+  usuarioId  Int
+  usuario    Usuario  @relation(fields: [usuarioId], references: [id])
 }
