@@ -3,9 +3,15 @@ import { NotAuthorizedError } from "../../../../errors/NotAuthorizedError";
 import { Barbearia } from "@prisma/client";
 import { deleteObject } from "../../../../utils/functions/aws";
 
+type BarbeariaInterface = Omit<Barbearia, 'id' | 'usuarioId'> & {
+  foto?: string | null;
+  chaveAws?: string | null;
+  id?: number;
+};
+
 export class barbeariaService {
     
-  async criarBarbearia(body: Omit<Barbearia, 'id' | 'foto' | 'chaveAws' |  'usuarioId'>, idUsuario: number, file: any) {
+  async criarBarbearia(body: BarbeariaInterface, idUsuario: number, file: any) {
           const novaBarbearia = await prisma.barbearia.create({
             data: {
               nome: body.nome,
@@ -19,7 +25,9 @@ export class barbeariaService {
           return novaBarbearia;
       }
     
-    async editarBarbearia(body: Barbearia, idUsuario: number, file: any) {
+    
+    
+    async editarBarbearia(body: BarbeariaInterface, idUsuario: number, file: any) {
         const barbearia = await prisma.barbearia.findFirst({
           where: { usuarioId: +idUsuario }
         });
@@ -39,6 +47,9 @@ export class barbeariaService {
           body.foto = barbearia?.foto;
           body.chaveAws = barbearia?.chaveAws;
         }
+
+        if(!body.id)
+          throw new Error('Id da barbearia não informado.');
 
         const barbeariaAtualizada = await prisma.barbearia.update({
             where: { id: +body.id },
