@@ -5,7 +5,7 @@ import { deleteObject } from "../../../../utils/functions/aws";
 
 export class barbeariaService {
     
-    async criarBarbearia(body: Barbearia, idUsuario: number, file:any) {
+  async criarBarbearia(body: Omit<Barbearia, 'id' | 'foto' | 'chaveAws' |  'usuarioId'>, idUsuario: number, file: any) {
           const novaBarbearia = await prisma.barbearia.create({
             data: {
               nome: body.nome,
