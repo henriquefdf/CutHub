@@ -45,9 +45,10 @@ describe('UsuarioService', () => {
     (prisma.usuario.findUnique as jest.Mock).mockResolvedValue(null);
     (prisma.usuario.create as jest.Mock).mockResolvedValue(novoUsuario);
 
-    const resultado = await UsuarioService.criar(novoUsuario);
+    const resultado = await UsuarioService.criar(novoUsuario, {} as Express.Multer.File); // Pass an empty object as the second argument
     expect(resultado).toEqual(novoUsuario);
   });
+
 
   it('obtém um usuário pelo id', async () => {
     const usuario: Usuario = {
@@ -120,7 +121,7 @@ describe('UsuarioService', () => {
 
     (prisma.usuario.update as jest.Mock).mockResolvedValue(usuarioAtualizado);
 
-    const resultado = await UsuarioService.updateUsuario(usuarioAtualizado, usuario);
+    const resultado = await UsuarioService.updateUsuario(usuarioAtualizado, usuario, {} as Express.Multer.File); // Pass an empty object as the third argument
     expect(resultado).toEqual(usuarioAtualizado);
   });
 
@@ -139,7 +140,7 @@ describe('UsuarioService', () => {
 
     (prisma.usuario.delete as jest.Mock).mockResolvedValue(usuario);
 
-    const resultado = await UsuarioService.deleteUsuario(usuario);
+    const resultado = await UsuarioService.deleteUsuario(usuario); // Pass the required argument
     expect(resultado).toEqual(usuario);
   });
 
@@ -169,3 +170,6 @@ describe('UsuarioService', () => {
   });
 
 });
+
+
+export {}; // Para evitar erros de "Cannot redeclare block-scoped variable" no TypeScript

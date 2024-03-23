@@ -2,9 +2,10 @@ import { S3Client, DeleteObjectCommand  } from '@aws-sdk/client-s3';
 import multer from 'multer';
 import multerS3 from 'multer-s3';
 import { randomBytes } from 'crypto';
+import { getEnv } from './getEnv';
 
 export const s3 = new S3Client({ 
-	region: 'us-east-2',
+	region: 'sa-east-1',
 	credentials: {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
@@ -15,7 +16,7 @@ export const upload = multer({
 	storage: multerS3({
 		s3: s3,
 		acl: 'public-read',
-		bucket: process.env.AWS_BUCKET_NAME!,
+		bucket: "geoprospect",
 		contentType: multerS3.AUTO_CONTENT_TYPE,
 
 		key: function (req, file, cb) {
