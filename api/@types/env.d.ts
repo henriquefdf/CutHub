@@ -8,5 +8,7 @@ declare namespace NodeJS {
         AWS_ACCESS_KEY: string;
         AWS_DEFAULT_REGION: string;
         AWS_BUCKET_NAME: string;
+        EMAIL_ACCOUNT: string;
+        EMAIL_PASSWORD: string;
     }
 }
