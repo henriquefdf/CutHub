@@ -42,7 +42,7 @@ export const upload = multer({
 
 export async function deleteObject(key: string) {
 	try {
-	  	const params = {
+		const params = {
 			Bucket: process.env.AWS_BUCKET_NAME,
 			Key: key,
 		};

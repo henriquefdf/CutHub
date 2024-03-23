@@ -3,6 +3,7 @@ import { Usuario } from '@prisma/client';
 import { loginMiddleware, logoutMiddleware, notLoggedIn, verifyJWT } from '../../../middlewares/auth';
 import usuarioService from '../services/usuarioService';
 import { codigoStatus } from '../../../../utils/constants/statusCodes';
+import { upload } from '../../../../utils/functions/aws';
 const router= Router();
 
 router.post('/login', notLoggedIn, loginMiddleware);
@@ -27,9 +28,9 @@ router.post('/validaToken', async (req: Request, res: Response, next: NextFuncti
         }
     });
 
-router.post('/criar', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/criar',  upload.single('foto'), async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const novoUsuario = await usuarioService.criar(req.body);
+            const novoUsuario = await usuarioService.criar(req.body, req.file as Express.MulterS3.File);
             res.status(codigoStatus.CRIADO).json(novoUsuario);
         } catch (error) {
             next(error);
@@ -54,9 +55,9 @@ router.get('/lista', verifyJWT, async (req: Request, res: Response, next: NextFu
     }
 })
 
-router.put('/atualizar', verifyJWT, async (req: Request, res: Response, next: NextFunction) => {
+router.put('/atualizar', verifyJWT,  upload.single('foto'), async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const usuario = await usuarioService.updateUsuario(req.body, req.Usuario as Usuario);
+        const usuario = await usuarioService.updateUsuario(req.body, req.Usuario as Usuario, req?.file as Express.MulterS3.File);
         res.status(codigoStatus.SUCESSO).json(usuario);
     } catch (error) {
         next(error);

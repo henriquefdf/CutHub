@@ -6,6 +6,7 @@ import { hash } from "bcrypt";
 import { InvalidParamError } from "../../../../errors/InvalidParamError";
 import crypto from 'crypto';
 import { enviaEmail } from "../../../../utils/functions/enviaEmail";
+import { deleteObject } from "../../../../utils/functions/aws";
 
 
 
@@ -18,7 +19,7 @@ class UsuarioService {
     }
 
 
-    async criar(body: Usuario,) {
+    async criar(body: Usuario, foto: Express.Multer.File) {
 
         if(await prisma.usuario.findUnique({ where: { email: body.email } })) {
             throw new QueryError('Email já cadastrado.');
@@ -31,7 +32,9 @@ class UsuarioService {
                 nome: body.nome,
                 email: body.email,
                 senha: body.senha,
-                tipo: body.tipo
+                tipo: body.tipo,
+                foto: (foto as Express.MulterS3.File)?.location,
+                chaveAws: (foto as Express.MulterS3.File)?.key,
             }
         });
         return novoUsuario;
@@ -49,13 +52,24 @@ class UsuarioService {
         return usuarios;
     }
 
-    async updateUsuario(body: Usuario, usuarioLogado: Usuario) {
+    async updateUsuario(body: Usuario, usuarioLogado: Usuario, foto: Express.Multer.File | Express.MulterS3.File) {
 
+        const findUser = await prisma.usuario.findUnique({
+            where: { id: usuarioLogado.id }
+        });
 
         if(body.senha) {
             body.senha = await this.encryptPassword(body.senha);
         }
-
+        if (foto) {
+            deleteObject(findUser?.chaveAws!);
+            body.foto = (foto as Express.MulterS3.File).location;
+            body.chaveAws = (foto as Express.MulterS3.File).key;
+        } else {
+            body.foto = findUser?.foto || null;
+            body.chaveAws = findUser?.chaveAws || null;
+        }
+  
         const usuario = await prisma.usuario.update({
             where: { id: usuarioLogado.id },
             data: body
