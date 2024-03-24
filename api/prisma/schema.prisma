@@ -24,6 +24,7 @@ model Usuario {
   tokenRecPass String?     @unique @db.VarChar(255)
   dateRecPass  DateTime?   @db.DateTime(3)
   barbearia    Barbearia?  // Alterado para ser um relacionamento um-para-um
+  agendamento  Agendamento[]
 }
 
 
@@ -36,6 +37,7 @@ model Barbearia {
   usuarioId  Int       @unique
   usuario    Usuario   @relation(fields: [usuarioId], references: [id])
   servicos   Servico[]
+  agendamento Agendamento[]
 }
 
 model Servico {
@@ -47,5 +49,17 @@ model Servico {
   chaveAws    String?   @unique
   barbeariaId Int
   barbearia   Barbearia @relation(fields: [barbeariaId], references: [id])
+  agendamento Agendamento[]
 }
 
+//um usuario tem varios agendamentos, um servico tem varios agendamentos, uma barbearia tem varios agendamentos
+model Agendamento {
+  id          Int       @id @default(autoincrement())
+  data        DateTime
+  usuarioId   Int
+  usuario     Usuario   @relation(fields: [usuarioId], references: [id])
+  servicoId   Int
+  servico     Servico   @relation(fields: [servicoId], references: [id])
+  barbeariaId Int
+  barbearia   Barbearia @relation(fields: [barbeariaId], references: [id])
+}

@@ -7,7 +7,7 @@ import 'dotenv/config';
 import usuariosRouter from '../src/domains/usuario/controllers';
 import barbeariaRouter from '../src/domains/barbearia/controllers';
 import servicoRouter from '../src/domains/servico/controllers';
-
+import agendamentoRouter from '../src/domains/agendamento/controllers';
 
 export const app: Express = express();
 
@@ -28,3 +28,4 @@ app.use(express.json());
 app.use('/api/usuarios', usuariosRouter);
 app.use('/api/barbearias', barbeariaRouter);
 app.use('/api/servicos', servicoRouter);
+app.use('/api/agendamentos', agendamentoRouter);
