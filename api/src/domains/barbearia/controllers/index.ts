@@ -1,5 +1,4 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import { Barbearia } from '@prisma/client';
 import { checkTipo, verifyJWT } from '../../../middlewares/auth';
 import barbeariaService from '../services/barbeariaService';
 import { usuarioTipo } from '../../usuario/constants/tipos';
