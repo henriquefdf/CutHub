@@ -28,11 +28,24 @@ model Usuario {
 
 
 model Barbearia {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   nome       String
   endereco   String
-  foto       String?  // URL da foto da barbearia
-  chaveAws   String?  @unique
-  usuarioId  Int      @unique
-  usuario    Usuario  @relation(fields: [usuarioId], references: [id])
+  foto       String?
+  chaveAws   String?   @unique
+  usuarioId  Int       @unique
+  usuario    Usuario   @relation(fields: [usuarioId], references: [id])
+  servicos   Servico[]
 }
+
+model Servico {
+  id          Int       @id @default(autoincrement())
+  nome        String
+  descricao   String
+  preco       Float
+  foto       String?
+  chaveAws    String?   @unique
+  barbeariaId Int
+  barbearia   Barbearia @relation(fields: [barbeariaId], references: [id])
+}
+
