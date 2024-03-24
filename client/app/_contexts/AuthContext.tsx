@@ -7,23 +7,14 @@ import { useRouter } from "next/navigation";
 import { signInRequest, recoverUserInformation} from "@/app/_services/auth";
 import { updateApiToken } from "@/app/_services/api";
 
+import { User } from "@/app/_services/types";
+import { SignInRequestData as SignInData } from "@/app/_services/auth";
+
 type AuthProviderProps = {
     children: ReactNode;
 };
 
-export type User = {
-    nome: string;
-    email: string;
-    foto: string;
-    senha: string;
-    id: string;
-    tipo: number;
-};
 
-type SignInData = {
-    email: string;
-    senha: string;
-};
 
 type AuthContextType = {
     isAuthenticated: boolean;

@@ -1,7 +1,7 @@
 import { api } from './api';
-import { User } from '@/app/_contexts/AuthContext';
+import { User } from '@/app/_services/types';
 
-type SignInRequestData = {
+export type SignInRequestData = {
   email: string;
   senha: string;
 };

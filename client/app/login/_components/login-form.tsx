@@ -76,7 +76,7 @@ export function LoginForm() {
                 </FormItem>
               )}
             />
-            <Button variant="default" type="submit" className="w-full mt-4"> {/* Botão estilizado para ocupar a largura total */}
+            <Button variant="default" type="submit" className="w-full mt-4"> 
               Login
             </Button>
 
@@ -87,7 +87,6 @@ export function LoginForm() {
               </a>
             </div>
 
-            {/* Divisão opcional */}
             <div className="my-4">
               <hr className="border-t border-muted" />
             </div>
