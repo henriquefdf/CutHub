@@ -63,6 +63,12 @@ export class barbeariaService {
 
         return barbeariaAtualizada;
     }
+
+    async listarBarbearias(){
+        const barbearias = await prisma.barbearia.findMany();
+
+        return barbearias;
+    }
 }
 
 export default new barbeariaService();
