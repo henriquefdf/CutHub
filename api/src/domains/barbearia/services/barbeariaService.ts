@@ -69,6 +69,17 @@ export class barbeariaService {
 
         return barbearias;
     }
+
+    async listarBarbearia(id: number){
+        const barbearia = await prisma.barbearia.findFirst({
+            where: { id } ,
+            include :{
+                servicos: true
+            }
+        });
+
+        return barbearia;
+    }
 }
 
 export default new barbeariaService();
