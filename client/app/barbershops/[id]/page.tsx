@@ -1,12 +1,13 @@
-"use client";
+'use client';
 
 import { AuthContext } from "@/app/_contexts/AuthContext";
 import BarbershopInfo from "./_components/barbershop-info";
 import ServiceItem from "./_components/service-item";
 
-import { barbershops } from "@/app/_services/types";
-import { Service } from "@/app/_services/types";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+
+import { Service, Barbershop } from "@/app/_services/types";
+import { getBarbershop } from "@/app/_services/routes/barbershop";
 
 interface BarbershopDetailPageProps {
     params: {
@@ -15,7 +16,7 @@ interface BarbershopDetailPageProps {
 }
 
 
-const BarbershopDetailPage = async ({ params }: BarbershopDetailPageProps) => {
+const BarbershopDetailPage = ({ params }: BarbershopDetailPageProps) => {
 
     const { isAuthenticated } =  useContext(AuthContext);
 
@@ -24,15 +25,32 @@ const BarbershopDetailPage = async ({ params }: BarbershopDetailPageProps) => {
         return <h1>404</h1>
     };
 
-    const barbershop = barbershops.find(async (barbershop) => barbershop.id === params.id);
+    const [barbershop, setBarbershop] = useState<Barbershop | null>(null);
 
+    useEffect(() => {
+        const fetchBarbershops = async () => {
+            try {
+                const fetchedBarbershops = await getBarbershop(params.id!);
+                setBarbershop(fetchedBarbershops);
+            } catch (error) {
+                console.error('Erro ao listar barbearias', error);
+            }
+        };
+
+        fetchBarbershops();
+    }, []);
+
+    //TODO: Implementar loading
+    if (!barbershop) {
+        return <h1>Carregando...</h1>
+    }
 
     return (  
        <div>
             <BarbershopInfo barbershop={barbershop!}/>
 
             <div className="flex flex-col gap-4 px-5 py-6">
-                    {barbershop!.services.map((service :Service) => (
+                    {barbershop!.servicos.map((service :Service) => (
                         <ServiceItem key={service.id} service={service} isAutencticated={ isAuthenticated } />
                     ))}
             </div>

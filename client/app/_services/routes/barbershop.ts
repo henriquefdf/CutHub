@@ -10,3 +10,12 @@ export async function listBarbershops() {
     throw new Error('Erro ao listar barbearias')
   }
 }
+
+export async function getBarbershop(id: number) {
+  try {
+    const response = await api.get(`/barbearias/listar/${id}`)
+    return response.data as Barbershop
+  } catch (error) {
+    throw new Error('Erro ao buscar barbearia')
+  }
+}

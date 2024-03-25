@@ -29,7 +29,7 @@ const BarbershopInfo = ({barbershop}: BarbershopDetailPageProps) => {
                     <MenuIcon />
                 </Button>
 
-                <Image src = {barbershop.imageUrl} alt={barbershop.nome} fill objectFit="cover" className="opacity-75"/>
+                <Image src = {barbershop.foto} alt={barbershop.nome} fill objectFit="cover" className="opacity-75"/>
             </div>
             <div className="px-5 pt-3 pb-6 border-b border-solid border-secondary">
 

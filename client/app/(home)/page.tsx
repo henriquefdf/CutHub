@@ -25,7 +25,6 @@ function Home() {
         const fetchBarbershops = async () => {
             try {
                 const fetchedBarbershops = await listBarbershops();
-                console.log(fetchedBarbershops);
                 setBarbershops(fetchedBarbershops);
             } catch (error) {
                 console.error('Erro ao listar barbearias', error);
