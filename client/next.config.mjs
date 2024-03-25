@@ -2,7 +2,8 @@
 const nextConfig = {
     images:{
         remotePatterns: [{
-            hostname: 'utfs.io'
+            // (https://geoprospect.s3.sa-east-1.amazonaws.com/a1d3e7bb36687d09f2dc)
+            hostname: 'geoprospect.s3.sa-east-1.amazonaws.com',
         }]
     }
 };

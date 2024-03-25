@@ -5,7 +5,7 @@ import Header from "../_components/header";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../_contexts/AuthContext";
 import Search from "../_components/search";
 import BookingItem from "../_components/booking-item";
@@ -13,13 +13,27 @@ import { Barbershop } from "../_services/types";
 import BarbershopItem from "../_components/barbershop-item";
 import Footer from "../_components/footer";
 
-import { barbershops } from "../_services/types";
+import { listBarbershops } from "../_services/routes/barbershop";
 
 
 function Home() {
     const { user } = useContext(AuthContext);
 
-    
+    const [barbershops, setBarbershops] = useState<Barbershop[]>([]);
+
+    useEffect(() => {
+        const fetchBarbershops = async () => {
+            try {
+                const fetchedBarbershops = await listBarbershops();
+                console.log(fetchedBarbershops);
+                setBarbershops(fetchedBarbershops);
+            } catch (error) {
+                console.error('Erro ao listar barbearias', error);
+            }
+        };
+
+        fetchBarbershops();
+    }, []);
 
     return (
         <div>
@@ -71,7 +85,7 @@ function Home() {
                 </div>
             </div>
 
-            <Footer/>
+            <Footer />
 
         </div>
     );

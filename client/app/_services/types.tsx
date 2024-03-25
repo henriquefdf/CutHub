@@ -5,16 +5,16 @@ export type User = {
   senha: string;
   id: string;
   tipo: string;
-  // bookings: Booking[];
+  bookings: Booking[];
 };
 
 export interface Barbershop {
   id: number;
   nome: string;
   endereco: string;
-  imageUrl: string;
+  foto: string;
   services: Service[];
-  // bookings: Booking[];
+  bookings: Booking[];
 }
 
 export interface Service {
@@ -80,68 +80,7 @@ export const services: Service[] = [
 ];
 
 
-export const barbershops: Barbershop[] = [
-  {
-    id: 1,
-    nome: "Barbearia do Zé",
-    endereco: "Rua das Flores, 123",
-    imageUrl: "https://utfs.io/f/c97a2dc9-cf62-468b-a851-bfd2bdde775f-16p.png",
-    services: [services[0], services[1], services[2], services[3], services[4], services[5]],
-  },
-  {
-    id: 2,
-    nome: "Barbearia do Celim",
-    endereco: "Rua das Rosas, 456",
-    imageUrl: "https://utfs.io/f/45331760-899c-4b4b-910e-e00babb6ed81-16q.png",
-    services: [services[0], services[1], services[2], services[3], services[4], services[5]],
-  },
-  {
-    id: 3,
-    nome: "Barbearia do Zé",
-    endereco: "Rua das Flores, 123",
-    imageUrl: "https://utfs.io/f/60f24f5c-9ed3-40ba-8c92-0cd1dcd043f9-16w.png",
-    services: [services[0], services[1], services[2], services[3], services[4], services[5]],
-  },
-];
 
-export const users: User[] = [
-  {
-    nome: "João Silva",
-    email: "joao@example.com",
-    foto: "https://utfs.io/f/usuario1.png",
-    senha: "senha123",
-    id: "1",
-    tipo: 'cliente',
-    // bookings: []
-  },
-  {
-    nome: "Maria Oliveira",
-    email: "maria@example.com",
-    foto: "https://utfs.io/f/usuario2.png",
-    senha: "senha456",
-    id: "2",
-    tipo: 'dono_barbearia',
-    // bookings: []
-  }
-];
-
-// Exemplos de dados para `bookings`
-export const bookings: Booking[] = [
-  {
-    id: 1,
-    date: new Date(2024, 2, 25, 14, 0), 
-    service: services[0],
-    barbershop: barbershops[0],
-    user: users[0]
-  },
-  {
-    id: 2,
-    date: new Date(2024, 2, 26, 16, 0),
-    service: services[1],
-    barbershop: barbershops[0],
-    user: users[1]
-  }
-];
 
 
 // bookings.forEach(booking => {

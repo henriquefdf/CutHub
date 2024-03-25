@@ -34,7 +34,7 @@ const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
                     </div>
                     <Image
                         alt={barbershop.nome}
-                        src={barbershop.imageUrl}
+                        src={barbershop.foto}
                         style={{
                             objectFit: "cover",
                         }}
