@@ -4,15 +4,15 @@ import { Agendamento } from "@prisma/client";
 
 type AgendamentoInterface = Omit<Agendamento, 'id'> & {
   id?: number;
-  idServico: number;
+  servicoId: number;
 };
 
 export class agendamentoService {
-    async criarAgendamento(body: AgendamentoInterface, idUsuario: number){
+    async criarAgendamento(body: AgendamentoInterface, usuarioId: number){
 
         const servico = await prisma.servico.findFirst({
             where: {
-                id: +body.idServico
+                id: +body.servicoId
             }
         });
 
@@ -23,7 +23,7 @@ export class agendamentoService {
             where: {
                 servicos: {
                     some: {
-                        id: +body.idServico
+                        id: +body.servicoId
                     }
                 }
             }
@@ -46,29 +46,29 @@ export class agendamentoService {
         const novoAgendamento = await prisma.agendamento.create({
             data: {
                 data: body.data,
-                servicoId: +body.idServico,
+                servicoId: +body.servicoId,
                 barbeariaId: barbearia.id,
-                usuarioId: idUsuario
+                usuarioId: usuarioId
             }
         });
 
         return novoAgendamento;
     }
 
-    async listarAgendamentosCliente(idUsuario: number){
+    async listarAgendamentosCliente(usuarioId: number){
         const agendamentos = await prisma.agendamento.findMany({
             where: {
-                usuarioId: idUsuario
+                usuarioId: usuarioId
             }
         });
 
         return agendamentos;
     }
 
-    async listarAgendamentosBarbearia(idDono: number){
+    async listarAgendamentosBarbearia(donoId: number){
         const barbearia = await prisma.barbearia.findFirst({
             where: {
-                usuarioId: idDono
+                usuarioId: donoId
             }
         });
 
@@ -85,22 +85,22 @@ export class agendamentoService {
        
     }
 
-    async deletarAgendamento(idAgendamento: number, idUsuario: number){
+    async deletarAgendamento(agendamentoId: number, usuarioId: number){
         const agendamento = await prisma.agendamento.findFirst({
             where: {
-                id: idAgendamento
+                id: agendamentoId
             }
         });
 
         if(!agendamento)
             throw new NotAuthorizedError('Agendamento não encontrado.');
 
-        if(agendamento.usuarioId !== idUsuario)
+        if(agendamento.usuarioId !== usuarioId)
             throw new NotAuthorizedError('Você não tem permissão para cancelar esse agendamento.');
 
         const agendamentoCancelado = await prisma.agendamento.delete({
             where: {
-                id: idAgendamento
+                id: agendamentoId
             }
         });
 

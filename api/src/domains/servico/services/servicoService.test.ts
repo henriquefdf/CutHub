@@ -57,7 +57,7 @@ describe('servicoService', () => {
     };
  
     const idBarbearia = 1;
-    const idDono = 1;
+    const donoId = 1;
     const file = {
       location: 'http://exemplo.com/foto.jpg',
       key: 'chave-s3'
@@ -85,7 +85,7 @@ describe('servicoService', () => {
         id: idBarbearia,
         foto: null,
         chaveAws: null,
-    }, idDono, file);
+    }, donoId, file);
 
     expect(resultado).toEqual({
       id: 1,
@@ -102,15 +102,15 @@ describe('servicoService', () => {
       preco: 50,
     };
 
-    const idServico = 1;
-    const idDono = 1;
+    const servicoId = 1;
+    const donoId = 1;
     const file = {
       location: 'http://exemplo.com/foto.jpg',
       key: 'chave-s3'
     };
 
     jest.mocked(prisma.servico.findFirst).mockResolvedValue({
-      id: idServico,
+      id: servicoId,
       ...body,
       foto: file.location,
       chaveAws: file.key,
@@ -129,10 +129,10 @@ describe('servicoService', () => {
         nome: body.nome,
         descricao: body.descricao,
         preco: +body.preco,
-        id: idServico,
+        id: servicoId,
         foto: null,
         chaveAws: null,
-    }, idDono, file);
+    }, donoId, file);
 
     expect(resultado).toEqual({
       id: 1,
@@ -144,11 +144,11 @@ describe('servicoService', () => {
   });
 
     it('deve deletar um serviço', async () => {
-        const idServico = 1;
-        const idDono = 1;
+        const servicoId = 1;
+        const donoId = 1;
     
         jest.mocked(prisma.servico.findFirst).mockResolvedValue({
-        id: idServico,
+        id: servicoId,
         nome: 'Barba',
         descricao: 'Corte de barba',
         preco: 50,
@@ -166,21 +166,21 @@ describe('servicoService', () => {
         usuarioId: 1,
         });
     
-        await servicoService.deletarServico(idServico, idDono);
+        await servicoService.deletarServico(servicoId, donoId);
     
         expect(prisma.servico.findFirst).toHaveBeenCalledTimes(1);
         expect(prisma.servico.findFirst).toHaveBeenCalledWith({
-        where: { id: idServico }
+        where: { id: servicoId }
         });
     
         expect(prisma.barbearia.findFirst).toHaveBeenCalledTimes(1);
         expect(prisma.barbearia.findFirst).toHaveBeenCalledWith({
-        where: { usuarioId: idDono }
+        where: { usuarioId: donoId }
         });
     
         expect(prisma.servico.delete).toHaveBeenCalledTimes(1);
         expect(prisma.servico.delete).toHaveBeenCalledWith({
-        where: { id: idServico }
+        where: { id: servicoId }
         });
     
     });

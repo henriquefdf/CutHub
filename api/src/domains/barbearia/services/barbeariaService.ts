@@ -11,14 +11,14 @@ type BarbeariaInterface = Omit<Barbearia, 'id' | 'usuarioId'> & {
 
 export class barbeariaService {
     
-  async criarBarbearia(body: BarbeariaInterface, idUsuario: number, file: any) {
+  async criarBarbearia(body: BarbeariaInterface, usuarioId: number, file: any) {
           const novaBarbearia = await prisma.barbearia.create({
             data: {
               nome: body.nome,
               endereco: body.endereco,
               foto: (file as Express.MulterS3.File).location,
               chaveAws: (file as Express.MulterS3.File).key,
-              usuarioId: idUsuario,
+              usuarioId: usuarioId,
             },
           });
     
@@ -27,14 +27,14 @@ export class barbeariaService {
     
     
     
-    async editarBarbearia(body: BarbeariaInterface, idUsuario: number, file: any) {
+    async editarBarbearia(body: BarbeariaInterface, usuarioId: number, file: any) {
         const barbearia = await prisma.barbearia.findFirst({
-          where: { usuarioId: +idUsuario }
+          where: { usuarioId: +usuarioId }
         });
 
         console.log(barbearia);
 
-        if(barbearia?.usuarioId !== idUsuario) {
+        if(barbearia?.usuarioId !== usuarioId) {
             throw new NotAuthorizedError('Usuário não autorizado.');
         }
 

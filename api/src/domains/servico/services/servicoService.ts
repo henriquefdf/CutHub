@@ -12,9 +12,9 @@ type ServicoInterface = Omit<Servico, 'barbeariaId'> & {
 
 export class servicoService {
     
-      async criarServico(body: ServicoInterface, idDono: number, file: any){
+      async criarServico(body: ServicoInterface, donoId: number, file: any){
         const barbearia = await prisma.barbearia.findFirst({
-          where: { usuarioId: idDono }
+          where: { usuarioId: donoId }
         });
 
         if(!barbearia)
@@ -41,10 +41,10 @@ export class servicoService {
         return novoServico;
       }
 
-    async editarServico(body: ServicoInterface, idDono: number, file: any) {
+    async editarServico(body: ServicoInterface, donoId: number, file: any) {
 
       const barbearia = await prisma.barbearia.findFirst({
-        where: { usuarioId: idDono }
+        where: { usuarioId: donoId }
       });
 
       if(!barbearia)
@@ -92,16 +92,16 @@ export class servicoService {
       return servicoAtualizado;
   }
 
-    async deletarServico(idServico: number, idDono: number) {
+    async deletarServico(servicoId: number, donoId: number) {
       const barbearia = await prisma.barbearia.findFirst({
-        where: { usuarioId: idDono }
+        where: { usuarioId: donoId }
       });
 
       if(!barbearia)
         throw new QueryError('Barbearia não encontrada.');
 
       const servico = await prisma.servico.findFirst({
-        where: { id: idServico }
+        where: { id: servicoId }
       });
 
       if(!servico)
@@ -112,7 +112,7 @@ export class servicoService {
       }
 
       const servicoDeletado = await prisma.servico.delete({
-          where: { id: idServico }
+          where: { id: servicoId }
       });
 
       return servicoDeletado;

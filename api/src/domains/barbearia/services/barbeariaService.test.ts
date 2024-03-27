@@ -42,7 +42,7 @@ describe('barbeariaService', () => {
       nome: 'Barbearia do Teste',
       endereco: 'Rua dos Testes, 123',
     };
-    const idUsuario = 1;
+    const usuarioId = 1;
     const file = {
       location: 'http://exemplo.com/foto.jpg',
       key: 'chave-s3'
@@ -53,7 +53,7 @@ describe('barbeariaService', () => {
       ...body,
       foto: file.location,
       chaveAws: file.key,
-      usuarioId: idUsuario,
+      usuarioId: usuarioId,
     });
 
     const resultado = await barbeariaService.criarBarbearia({
@@ -61,7 +61,7 @@ describe('barbeariaService', () => {
       endereco: body.endereco,
       foto: file ? (file as Express.MulterS3.File).location : null,
       chaveAws: file ? (file as Express.MulterS3.File).key : null,
-    }, idUsuario, file);
+    }, usuarioId, file);
     
 
     expect(prisma.barbearia.create).toHaveBeenCalledWith({
@@ -70,7 +70,7 @@ describe('barbeariaService', () => {
         endereco: body.endereco,
         foto: file.location,
         chaveAws: file.key,
-        usuarioId: idUsuario,
+        usuarioId: usuarioId,
       },
     });
 
@@ -79,7 +79,7 @@ describe('barbeariaService', () => {
       ...body,
       foto: file.location,
       chaveAws: file.key,
-      usuarioId: idUsuario,
+      usuarioId: usuarioId,
     });
   });
 
@@ -96,7 +96,7 @@ describe('barbeariaService', () => {
         foto: 'http://exemplo.com/nova_foto.jpg',
         chaveAws: 'nova-chave-s3',
       };
-      const idUsuario = 1;
+      const usuarioId = 1;
       const file = {
         location: 'http://exemplo.com/nova_foto.jpg',
         key: 'nova-chave-s3'
@@ -109,16 +109,16 @@ describe('barbeariaService', () => {
         endereco: 'Rua Original, 123',
         foto: 'http://exemplo.com/foto_original.jpg',
         chaveAws: 'chave-original-s3',
-        usuarioId: idUsuario,
+        usuarioId: usuarioId,
       });
   
       // Mock para a atualização da barbearia
       jest.mocked(prisma.barbearia.update).mockResolvedValue({
         ...body,
-        usuarioId: idUsuario,
+        usuarioId: usuarioId,
       });
   
-      const resultado = await barbeariaService.editarBarbearia(body, idUsuario, file);
+      const resultado = await barbeariaService.editarBarbearia(body, usuarioId, file);
   
       expect(deleteObject).toHaveBeenCalledWith('chave-original-s3');
       expect(prisma.barbearia.update).toHaveBeenCalledWith({
@@ -133,7 +133,7 @@ describe('barbeariaService', () => {
   
       expect(resultado).toEqual({
         ...body,
-        usuarioId: idUsuario,
+        usuarioId: usuarioId,
       });
     });
   
@@ -145,7 +145,7 @@ describe('barbeariaService', () => {
         foto: null,
         chaveAws: null,
       };
-      const idUsuario = 2; // ID diferente do usuário da barbearia
+      const usuarioId = 2; // ID diferente do usuário da barbearia
 
       const file = {
         location: 'http://exemplo.com/foto.jpg',
@@ -157,9 +157,9 @@ describe('barbeariaService', () => {
         endereco: body.endereco,
         foto: file ? (file as Express.MulterS3.File).location : null,
         chaveAws: file ? (file as Express.MulterS3.File).key : null,
-      }, idUsuario, file);
+      }, usuarioId, file);
   
-      await expect(barbeariaService.editarBarbearia(body, idUsuario, null)).rejects.toThrow('Usuário não autorizado.');
+      await expect(barbeariaService.editarBarbearia(body, usuarioId, null)).rejects.toThrow('Usuário não autorizado.');
     });
 
   // More tests can be added here as needed
