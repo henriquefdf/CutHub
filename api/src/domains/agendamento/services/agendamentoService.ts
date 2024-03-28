@@ -1,6 +1,7 @@
 import prisma from "../../../../config/prismaClient";
 import { NotAuthorizedError } from "../../../../errors/NotAuthorizedError";
 import { Agendamento } from "@prisma/client";
+import { endOfDay, startOfDay } from "date-fns"
 
 type AgendamentoInterface = Omit<Agendamento, 'id'> & {
   id?: number;
@@ -105,6 +106,20 @@ export class agendamentoService {
         });
 
         return agendamentoCancelado;
+    }
+
+    async listarAgendamentosBarbeariaData(barbeariaId: string, data: Date){
+        const agendamentos = await prisma.agendamento.findMany({
+            where: {
+                barbeariaId: +barbeariaId,
+                data: {
+                    lte: endOfDay(data),
+                    gte: startOfDay(data)
+                }
+            }
+        });
+
+        return agendamentos;
     }
 }
 

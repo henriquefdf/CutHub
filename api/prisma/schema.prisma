@@ -55,7 +55,7 @@ model Servico {
 //um usuario tem varios agendamentos, um servico tem varios agendamentos, uma barbearia tem varios agendamentos
 model Agendamento {
   id          Int       @id @default(autoincrement())
-  data        DateTime
+  data        DateTime  @db.Timestamp()
   usuarioId   Int
   usuario     Usuario   @relation(fields: [usuarioId], references: [id])
   servicoId   Int

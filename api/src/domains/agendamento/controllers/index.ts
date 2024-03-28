@@ -54,6 +54,18 @@ router.delete('/deletar/:id',
         }
 })
 
+router.get('/:barbeariaId/:data' ,
+    verifyJWT,
+    checkTipo(usuarioTipo.CLIENTE),
+    async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const agendamentos = await agendamentoService.listarAgendamentosBarbeariaData(req.params.barbeariaId, new Date(req.params.data));
+            res.status(codigoStatus.SUCESSO).json(agendamentos);
+        } catch (error) {
+            next(error);
+        }
+})
+
 
 
 export default router;
