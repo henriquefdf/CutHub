@@ -1,7 +1,8 @@
-
 "use client";
 
+import SideMenu from "@/app/_components/side-menu";
 import { Button } from "@/app/_components/ui/button";
+import { SheetContent,SheetTrigger, Sheet } from "@/app/_components/ui/sheet";
 import { Barbershop } from "@/app/_services/types";
 import { ChevronLeftIcon, MapPin, MenuIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
@@ -25,9 +26,17 @@ const BarbershopInfo = ({barbershop}: BarbershopDetailPageProps) => {
                     <ChevronLeftIcon />
                 </Button>
 
-                <Button size="icon" variant="outline" className="absolute top-4 right-4 z-50">
-                    <MenuIcon />
-                </Button>
+                <Sheet>
+                    <SheetTrigger asChild>
+                        <Button variant="outline" size="icon" className="z-50 absolute top-4 right-4">
+                            <MenuIcon size={18} />
+                        </Button>
+                    </SheetTrigger>
+
+                    <SheetContent className="p-0">
+                        <SideMenu />
+                    </SheetContent>
+                </Sheet>
 
                 <Image src = {barbershop.foto} alt={barbershop.nome} fill objectFit="cover" className="opacity-75"/>
             </div>
