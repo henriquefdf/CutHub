@@ -3,7 +3,7 @@ export type User = {
   email: string;
   foto: string;
   senha: string;
-  id: string;
+  id: number;
   tipo: string;
   bookings: Booking[];
 };
@@ -29,7 +29,7 @@ export interface Service {
 export interface Booking {
   id: number;
   data: Date;
-  servicos: Service;
-  barbershop: Barbershop;
-  usuario: User;
+  servicoId: number;
+  barbeariaId: number;
+  usuarioId: number;
 }

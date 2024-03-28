@@ -51,7 +51,7 @@ const BarbershopDetailPage = ({ params }: BarbershopDetailPageProps) => {
 
             <div className="flex flex-col gap-4 px-5 py-6">
                     {barbershop!.servicos.map((service :Service) => (
-                        <ServiceItem key={service.id} service={service} isAutencticated={ isAuthenticated } />
+                        <ServiceItem key={service.id} service={service} barbershop={barbershop} isAutencticated={ isAuthenticated } />
                     ))}
             </div>
         </div>
