@@ -56,7 +56,7 @@ A aplicação oferece ferramentas para adicionar serviços, gerenciar reservas, 
 - Criação da barbearia
 
 # Kanban
-[Link do Kanban](https://www.notion.so/Kanban-CutHub-cff5e7e939be4874a8adb803ac55cd1f?pvs=4)
+[Link do Kanban]([https://www.notion.so/Kanban-CutHub-cff5e7e939be4874a8adb803ac55cd1f?pvs=4a](https://hill-baboon-44e.notion.site/Kanban-CutHub-cff5e7e939be4874a8adb803ac55cd1f))
 
 # Tecnologias
 
