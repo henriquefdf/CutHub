@@ -64,7 +64,7 @@ export class agendamentoService {
         return novoAgendamento;
     }
 
-    async listarAgendamentosCliente(usuarioId: number, finalizado: number) {
+    async listarAgendamentosCliente(usuarioId: number, finalizado: string) {
         const dataAtual = new Date();
     
         let condicoes: CondicoesDeBusca = {

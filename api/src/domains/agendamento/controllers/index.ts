@@ -18,12 +18,12 @@ router.post('/criar',
         }
 })
 
-router.get('/listarDoCliente',
+router.get('/listarDoCliente/:finalizado',
     verifyJWT,
     checkTipo(usuarioTipo.CLIENTE),
     async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const agendamentos = await agendamentoService.listarAgendamentosCliente(req.Usuario!.id, req.body.finalizado);
+            const agendamentos = await agendamentoService.listarAgendamentosCliente(req.Usuario!.id, req.params.finalizado);
             res.status(codigoStatus.SUCESSO).json(agendamentos);
         } catch (error) {
             next(error);
