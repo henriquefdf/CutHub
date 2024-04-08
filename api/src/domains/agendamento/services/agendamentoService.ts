@@ -8,6 +8,14 @@ type AgendamentoInterface = Omit<Agendamento, 'id'> & {
   servicoId: number;
 };
 
+type CondicoesDeBusca = {
+    usuarioId: number;
+    data?: {
+        lte?: Date;
+        gte?: Date;
+    };
+};
+
 export class agendamentoService {
     async criarAgendamento(body: AgendamentoInterface, usuarioId: number){
 
@@ -56,15 +64,50 @@ export class agendamentoService {
         return novoAgendamento;
     }
 
-    async listarAgendamentosCliente(usuarioId: number){
-        const agendamentos = await prisma.agendamento.findMany({
-            where: {
-                usuarioId: usuarioId
-            }
-        });
+    async listarAgendamentosCliente(usuarioId: number, finalizado: number, ordem: 'asc' | 'desc') {
+        const dataAtual = new Date();
+    
+        let condicoes: CondicoesDeBusca = {
+            usuarioId: usuarioId,
+        };
 
-        return agendamentos;
-    }
+        const finalizadoBool = +finalizado !== 0;
+
+        if (finalizadoBool) {
+            condicoes.data = { lte: dataAtual };
+        } else {
+            condicoes.data = { gte: dataAtual };
+        }
+    
+        const agendamentos = await prisma.agendamento.findMany({
+            where: condicoes,
+            orderBy: {
+                data: ordem,
+            },
+        });
+    
+        const agendamentosComServico = await Promise.all(agendamentos.map(async (agendamento) => {
+            const servico = await prisma.servico.findFirst({
+                where: {
+                    id: agendamento.servicoId
+                }
+            });
+    
+            const barbearia = await prisma.barbearia.findFirst({
+                where: {
+                    id: agendamento.barbeariaId
+                }
+            });
+    
+            return {
+                ...agendamento,
+                servico: servico,
+                barbearia: barbearia
+            };
+        }));
+    
+        return agendamentosComServico;
+    }    
 
     async listarAgendamentosBarbearia(donoId: number){
         const barbearia = await prisma.barbearia.findFirst({
