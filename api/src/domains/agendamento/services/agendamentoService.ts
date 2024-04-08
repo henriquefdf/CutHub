@@ -64,7 +64,7 @@ export class agendamentoService {
         return novoAgendamento;
     }
 
-    async listarAgendamentosCliente(usuarioId: number, finalizado: number, ordem: 'asc' | 'desc') {
+    async listarAgendamentosCliente(usuarioId: number, finalizado: number) {
         const dataAtual = new Date();
     
         let condicoes: CondicoesDeBusca = {
@@ -73,10 +73,14 @@ export class agendamentoService {
 
         const finalizadoBool = +finalizado !== 0;
 
+        let ordem: 'asc' | 'desc';
+
         if (finalizadoBool) {
             condicoes.data = { lte: dataAtual };
+            ordem = 'desc';
         } else {
             condicoes.data = { gte: dataAtual };
+            ordem = 'asc'
         }
     
         const agendamentos = await prisma.agendamento.findMany({

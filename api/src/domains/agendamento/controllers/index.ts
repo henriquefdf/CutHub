@@ -23,7 +23,7 @@ router.get('/listarDoCliente',
     checkTipo(usuarioTipo.CLIENTE),
     async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const agendamentos = await agendamentoService.listarAgendamentosCliente(req.Usuario!.id, req.body.finalizado, req.body.ordem);
+            const agendamentos = await agendamentoService.listarAgendamentosCliente(req.Usuario!.id, req.body.finalizado);
             res.status(codigoStatus.SUCESSO).json(agendamentos);
         } catch (error) {
             next(error);
