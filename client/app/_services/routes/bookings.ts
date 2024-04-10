@@ -1,5 +1,5 @@
 import { api } from '../api';
-import { Booking } from '../types';
+import { Booking, BookingWithRelations } from '../types';
 
 type BookingRequest = Omit <Booking, 'id'>; 
 
@@ -19,5 +19,22 @@ export async function createBooking(booking: BookingRequest) {
         return response.data as Booking;
     } catch (error) {
         throw new Error('Erro ao criar agendamento');
+    }
+}
+
+export async function cancelBooking(bookingId: number) {
+    try {
+        await api.delete(`/agendamentos/deletar/${bookingId}`);
+    } catch (error) {
+        throw new Error('Erro ao cancelar agendamento');
+    }
+}
+
+export async function clientBookings(finalizado: number) {
+    try {
+        const response = await api.get(`/agendamentos/listarDoCliente/${finalizado}`);
+        return response.data as BookingWithRelations[];
+    } catch (error) {
+        throw new Error('Erro ao confirmar agendamento');
     }
 }
