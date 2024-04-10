@@ -53,4 +53,14 @@ router.get('/listar/:id',
         }
 })
 
+router.get('/listarPorNome/:nome',
+    async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const barbearia = await barbeariaService.listarBarbeariasPorNome(req.params.nome);
+            res.status(codigoStatus.SUCESSO).json(barbearia);
+        } catch (error) {
+            next(error);
+        }
+})
+
 export default router;
