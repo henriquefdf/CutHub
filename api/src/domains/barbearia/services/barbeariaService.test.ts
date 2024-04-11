@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/domains/barbearia/services/barbeariaService.test.ts
 
 import { jest } from '@jest/globals';
@@ -152,7 +153,7 @@ describe('barbeariaService', () => {
         key: 'chave-s3'
       };
   
-      const resultado = await barbeariaService.criarBarbearia({
+      await barbeariaService.criarBarbearia({
         nome: body.nome,
         endereco: body.endereco,
         foto: file ? (file as Express.MulterS3.File).location : null,
@@ -162,6 +163,5 @@ describe('barbeariaService', () => {
       await expect(barbeariaService.editarBarbearia(body, usuarioId, null)).rejects.toThrow('Usuário não autorizado.');
     });
 
-  // More tests can be added here as needed
   });
 });
