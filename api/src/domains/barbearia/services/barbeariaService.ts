@@ -80,6 +80,20 @@ export class barbeariaService {
 
         return barbearia;
     }
+
+    async listarBarbeariasPorNome(nome: string){
+        const barbearias = await prisma.barbearia.findMany({
+            where: {
+                nome: {
+                    contains: nome,
+                }
+            }
+        });
+
+        return barbearias;
+    }
+
+
 }
 
 export default new barbeariaService();

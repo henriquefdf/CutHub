@@ -33,3 +33,8 @@ export interface Booking {
   barbeariaId: number;
   usuarioId: number;
 }
+
+export interface BookingWithRelations extends Booking {
+  servico: Service;
+  barbearia: Barbershop;
+}
