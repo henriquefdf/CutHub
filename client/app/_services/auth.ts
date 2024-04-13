@@ -13,7 +13,7 @@ export async function signInRequest(data: SignInRequestData) {
     const { token } = response.data;
     return { token };
   } catch (error) {
-    throw new Error('Erro ao fazer login');
+    throw new Error(String('E-mail e/ou senha incorretos!'));
   }
 }
 

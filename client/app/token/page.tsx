@@ -11,6 +11,7 @@ import { Button } from "@/app/_components/ui/button"
 import { validateToken } from "../_services/user";
 
 import { useRouter } from "next/navigation";
+import { useToast } from "@/app/_components/ui/use-toast"
 
 const tokenPasswordSchema = z.object({
     senha: z.string().min(6, { message: "Senha deve ter no mínimo 6 caracteres" }),
@@ -21,7 +22,7 @@ const tokenPasswordSchema = z.object({
 type TokenFormInputs = z.infer<typeof tokenPasswordSchema>;
 
 const Token = () => {
-
+    const { toast } = useToast();
     const router = useRouter();
 
     const form = useForm<TokenFormInputs>({
@@ -30,8 +31,21 @@ const Token = () => {
     });
 
     const onSubmit: SubmitHandler<TokenFormInputs> = async (data) => {
-        await validateToken(data.email, data.token, data.senha);
-        router.push('/login');
+        try {
+            await validateToken(data.email, data.token, data.senha);
+            toast({
+                variant: "default",
+                title: "Senha Alterada com Sucesso",
+                description: "Sua senha foi alterada com sucesso, você será redirecionado para a página de login",
+            });
+            router.push('/login');
+        } catch (error: any) {
+            toast({
+                variant: "destructive",
+                title: "Erro ao Alterar Senha",
+                description: error.message || "Erro desconhecido",
+            });
+        }
     };
 
     return (

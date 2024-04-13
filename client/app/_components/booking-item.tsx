@@ -32,8 +32,6 @@ const BookingItem = ({ booking }: BookingItemProps) => {
             toast.success("Reserva cancelada com sucesso");
             router.refresh();
             
-
-
         } catch (error) {
             console.log(error);
         } finally {

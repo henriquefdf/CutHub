@@ -12,13 +12,14 @@ import { useRouter } from 'next/navigation';
 import { AuthContext } from '../_contexts/AuthContext';
 import { useContext, useState } from 'react';
 
-
+import { useToast } from "@/app/_components/ui/use-toast"
 import { logout } from '../_services/auth';
 
 
 const SideMenu = () => {
     const { user, updateUserContext } = useContext(AuthContext);
     const router = useRouter();
+    const { toast } = useToast();
 
     const [isLogout, setIsLogout] = useState(false);
 
@@ -29,8 +30,12 @@ const SideMenu = () => {
             router.push('/');
             router.refresh();
 
-        } catch (error) {
-            console.log(error);
+        } catch (error:any) {
+            toast({
+                variant: "destructive",
+                title: "Erro ao fazer logout",
+                description: error.message || "Erro desconhecido",
+            });
         } finally {
             setIsLogout(false);
         }

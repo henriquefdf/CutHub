@@ -9,7 +9,6 @@ import { Button } from "@/app/_components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,6 +16,8 @@ import {
 } from "@/app/_components/ui/form"
 import { Input } from "@/app/_components/ui/input"
 import Image from "next/image";
+
+import { useToast } from "@/app/_components/ui/use-toast"
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Tipo de email inválido" }),
@@ -27,14 +28,24 @@ type LoginFormInputs = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
   const { signIn } = useContext(AuthContext);
+  const { toast } = useToast();  
 
   const form = useForm<LoginFormInputs>({
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit : SubmitHandler<LoginFormInputs> = async (data) => {
-    await signIn(data);
+  const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
+    try {
+      await signIn(data);
+    } catch (error:any) {
+      toast({
+        variant: "destructive",
+        title: "Erro ao Entrar",
+        description: error.message || "Erro desconhecido",
+      });
+    }
   };
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="flex flex-col items-center gap-3">

@@ -23,6 +23,7 @@ import {
 import { Input } from "@/app/_components/ui/input";
 
 import { updateUser } from "@/app/_services/user";
+import { useToast } from "@/app/_components/ui/use-toast"
 
 const editProfileSchema = z.object({
     nome: z.string().min(1, "Nome é obrigatório").optional(),
@@ -32,13 +33,13 @@ const editProfileSchema = z.object({
     tipo: z.enum(["cliente", "dono_barbearia"]).optional(),
 });
 
-// Adapte o tipo de acordo com o que seu form de edição necessita
 type EditProfileFormInputs = z.infer<typeof editProfileSchema>;
 
 export function EditProfileForm() {
 
     const { user, updateUserContext} = useContext(AuthContext);
     const router = useRouter();
+    const { toast } = useToast();
     const [selectedFile, setSelectedFile] = useState<string | null>(null);
 
     const form = useForm<EditProfileFormInputs>({
@@ -70,10 +71,19 @@ export function EditProfileForm() {
 
         try {
             const update = await updateUser(formData);
-            await updateUserContext(update);
+            updateUserContext(update);
+            toast({
+                variant: "default",
+                title: "Perfil Atualizado",
+                description: "Seu perfil foi atualizado com sucesso",
+            });
             router.push("/");
-        } catch (error) {
-            console.error(error);
+        } catch (error:any) {
+            toast({
+                variant: "destructive",
+                title: "Erro ao Atualizar Perfil",
+                description: error.message || "Erro desconhecido",
+            });
         }
     };
 

@@ -20,6 +20,7 @@ import { sendToken } from "../_services/user";
 import { Button } from "@/app/_components/ui/button"
 
 import { useRouter } from "next/navigation";
+import { useToast } from "@/app/_components/ui/use-toast"
 
 
 const forgotPasswordSchema = z.object({
@@ -32,14 +33,28 @@ type EmailFormInputs = z.infer<typeof forgotPasswordSchema>;
 const ForgotPassword = () => {
 
     const router = useRouter();
+    const { toast } = useToast();
 
     const form = useForm<EmailFormInputs>({
         resolver: zodResolver(forgotPasswordSchema),
     });
 
     const onSubmit: SubmitHandler<EmailFormInputs> = async (data) => {
-        await sendToken(data.email);
-        router.push('/token');
+        try {
+            await sendToken(data.email);
+            toast({
+                variant: "default",
+                title: "Token Enviado",
+                description: "Token enviado para o email informado",
+            });
+            router.push('/token');
+        } catch (error: any) {
+            toast({
+                variant: "destructive",
+                title: "Erro ao Enviar Token",
+                description: error.message || "Erro desconhecido",
+            });
+        }
     };
 
     return (

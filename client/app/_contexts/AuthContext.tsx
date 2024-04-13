@@ -53,17 +53,17 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
 
     async function signIn({ email, senha }: SignInData) {
-        try {
-            const { token } = await signInRequest({ email, senha});
+      try {
+        const { token } = await signInRequest({ email, senha});
 
-            updateApiToken(token);
+        updateApiToken(token);
 
-            const userLogado: User  = await recoverUserInformation();
-            setUser(userLogado);
-            router.push('/');
-        } catch (error) {
-            console.error(error);
-        }
+        const userLogado: User  = await recoverUserInformation();
+        setUser(userLogado);
+        router.push('/');
+      } catch (error) {
+        throw new Error(String(error));
+      }
     }
 
     async function updateUserContext (newUserData: User | null) {
