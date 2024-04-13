@@ -11,7 +11,6 @@ import Search from "../_components/search";
 import BookingItem from "../_components/booking-item";
 import { Barbershop, BookingWithRelations } from "../_services/types";
 import BarbershopItem from "../_components/barbershop-item";
-import Footer from "../_components/footer";
 
 import { listBarbershops } from "../_services/routes/barbershop";
 import { clientBookings } from "../_services/routes/bookings";
@@ -123,9 +122,6 @@ function Home() {
                 </div>
 
             </div>
-
-
-            <Footer />
 
         </div>
     );

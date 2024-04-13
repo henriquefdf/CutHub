@@ -8,7 +8,6 @@ import BookingItem from "../_components/booking-item";
 import { BookingWithRelations } from "../_services/types";
 import { clientBookings } from "../_services/routes/bookings";
 
-
 const BookingPage = () => {
 
     const user = useContext(AuthContext);
@@ -35,6 +34,12 @@ const BookingPage = () => {
             <Header />
             <div className="px-5 py-6">
                 <h1 className="text-xl font-bold mb-6">Agendamentos</h1>
+
+                {confirmedBookings.length === 0 && finishedBookings.length === 0 && (
+                    <>
+                    <p className="text-gray-400">Você não possui agendamentos</p>
+                    </>
+                )}
 
                 {confirmedBookings.length > 0 && (
                     <>

@@ -1,28 +1,41 @@
 "use client";
 
-import { CalendarIcon, CircleUserRound, HomeIcon, LogInIcon, LogOutIcon, MenuIcon } from 'lucide-react';
+import { CalendarIcon, CircleUserRound, HomeIcon, LogInIcon, LogOutIcon, User } from 'lucide-react';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./ui/alert-dialog";
 import { Avatar, AvatarImage } from './ui/avatar';
-import { SheetHeader, SheetTitle} from './ui/sheet';
+import { SheetHeader, SheetTitle } from './ui/sheet';
 import { Button } from './ui/button';
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { AuthContext } from '../_contexts/AuthContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 
 import { logout } from '../_services/auth';
 
 
 const SideMenu = () => {
-    const { user } = useContext(AuthContext);
+    const { user, updateUserContext } = useContext(AuthContext);
     const router = useRouter();
 
-    const handleLogoutClick = () => {
-        logout();
+    const [isLogout, setIsLogout] = useState(false);
 
+    const handleLogoutClick = async () => {
+        try {
+            await logout();
+            updateUserContext(null);
+            router.push('/');
+            router.refresh();
+
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLogout(false);
+        }
     }
+
 
     const handleLoginClick = () => {
         router.push('/login');
@@ -38,15 +51,37 @@ const SideMenu = () => {
                 <div className="flex justify-between px-5 py-6 items-center">
                     <div className="flex items-center gap-3">
                         <Avatar>
-                            <AvatarImage src={user?.foto?? ""} alt={user.nome ?? ""} />
+                            <AvatarImage src={user?.foto ?? ""} alt={user.nome ?? ""} />
                         </Avatar>
 
                         <h2 className="font-bold"> {user.nome} </h2>
                     </div>
 
-                    <Button variant="secondary" size="icon">
-                        <LogOutIcon size={18} onClick={handleLogoutClick} />
-                    </Button>
+                    <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                            <Button variant="secondary" size="icon" disabled={isLogout}>
+                                <LogOutIcon size={18} />
+                            </Button>
+
+                        </AlertDialogTrigger>
+                        <AlertDialogContent className="w-[90%]">
+
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>Logout</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    Tem certeza que deseja sair do sistema?
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+
+                            <AlertDialogFooter className="flex-row gap-3">
+                                <AlertDialogCancel className="w-full mt-0">Voltar</AlertDialogCancel>
+                                <AlertDialogAction disabled={isLogout} className="w-full" onClick={handleLogoutClick}>Confirmar</AlertDialogAction>
+                            </AlertDialogFooter>
+
+                        </AlertDialogContent>
+                    </AlertDialog>
+
+
                 </div>
             ) : (
                 <div className="flex flex-col px-5 py-6 gap-3">
@@ -72,12 +107,21 @@ const SideMenu = () => {
                 </Button>
 
                 {user && (
+                    <>
                     <Button variant="outline" className="justify-start" asChild>
                         <Link href="/bookings">
                             <CalendarIcon size={18} className="mr-2" />
                             Agendamentos
                         </Link>
                     </Button>
+
+                    <Button variant="outline" className="justify-start" asChild>
+                    <Link href="/my-account">
+                        <User size={18} className="mr-2" />
+                        Minha conta
+                    </Link>
+                    </Button>
+                    </>
                 )}
             </div>
 

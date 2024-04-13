@@ -20,6 +20,7 @@ type AuthContextType = {
     isAuthenticated: boolean;
     user: User | null;
     signIn: (data: SignInData) => Promise<void>;
+    updateUserContext: (newUserData: User | null) => void;
 };
 
 
@@ -65,9 +66,13 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         }
     }
 
+    async function updateUserContext (newUserData: User | null) {
+      setUser(newUserData);
+    };
+
 
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signIn, updateUserContext }}>
             {children}
         </AuthContext.Provider>
     );
