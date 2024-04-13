@@ -29,3 +29,21 @@ export async function updateUser(data: FormData) {
     throw new Error('Erro ao atualizar usuário');
   }
 }
+
+export async function sendToken(email: string){
+    try {
+        const response = await api.post('/usuarios/enviaToken', { email });
+        return response.data;
+    } catch (error) {
+        throw new Error('Erro ao enviar token');
+    }
+}
+
+export async function validateToken(email: string, token: string, senha: string){
+    try {
+        const response = await api.post('/usuarios/validaToken', { email, token, senha });
+        return response.data;
+    } catch (error) {
+        throw new Error('Erro ao validar token');
+    }
+}

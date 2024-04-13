@@ -38,7 +38,7 @@ export function LoginForm() {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="flex flex-col items-center gap-3">
-        <Image src="/logo.png" alt="Logo" width={250} height={22} className="mb-5" />
+        <Image src="/logo.png" alt="Logo" width={180} height={22} className="mb-5" />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
             <FormField
