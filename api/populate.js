@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const { hash } = require('bcrypt');
 const axios = require('axios');
 const fs = require('fs');
