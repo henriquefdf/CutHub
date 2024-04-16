@@ -76,3 +76,7 @@ A aplicação oferece ferramentas para adicionar serviços, gerenciar reservas, 
 - Docker (Banco de Dados → MySQL)
   
 ## [Diagrama do Banco de Dados](https://dbdiagram.io/d/65b91aedac844320ae0e3200)
+
+# Diagramas UML
+[Diagrama de Classes](https://www.mermaidchart.com/raw/d224ec52-3b37-4178-a160-8a1dee9cac07?theme=light&version=v0.1&format=svg)
+
