@@ -89,7 +89,7 @@ const ServiceItem = ({ service, isAutencticated, barbershop }: ServiceItemProps)
                     locale: ptBR
                 }),
                 action: {
-                    label: "Vizualizar",
+                    label: "Visualizar",
                     onClick: () => {
                         router.push('/bookings');
                     },
