@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import prisma from "../../../../config/prismaClient";
 import { Usuario } from "@prisma/client";
 import { QueryError } from "../../../../errors/QueryError";
@@ -8,16 +7,12 @@ import crypto from 'crypto';
 import { enviaEmail } from "../../../../utils/functions/enviaEmail";
 import { deleteObject } from "../../../../utils/functions/aws";
 
-
-
-
 class UsuarioService {
 
     async encryptPassword(password: string) {
         const saltRounds = 10;
         return await hash(password, saltRounds);
     }
-
 
     async criar(body: Usuario, foto: Express.Multer.File) {
 

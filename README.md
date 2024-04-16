@@ -64,7 +64,7 @@ A aplicação oferece ferramentas para adicionar serviços, gerenciar reservas, 
 
 - Next.js 14.0
 - Shadcn
-- Tailwind css
+- Tailwind CSS
 - TypeScript
 
 ## Back:
@@ -75,4 +75,11 @@ A aplicação oferece ferramentas para adicionar serviços, gerenciar reservas, 
 - Prisma
 - Docker (Banco de Dados → MySQL)
   
-## [Diagrama do Banco de Dados](https://dbdiagram.io/d/65b91aedac844320ae0e3200)
+# Diagrama do Banco de Dados
+[Link do Diagrama do BD](https://dbdiagram.io/d/65b91aedac844320ae0e3200)
+
+# Diagramas UML
+[Diagrama de Classes](https://www.mermaidchart.com/raw/d224ec52-3b37-4178-a160-8a1dee9cac07?theme=light&version=v0.1&format=svg)
+
+[Diagrama de Fluxo](https://www.mermaidchart.com/raw/da24c3dd-ad45-4667-ae4a-b7468e2a24f3?theme=light&version=v0.1&format=svg)
+
