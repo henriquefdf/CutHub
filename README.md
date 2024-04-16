@@ -64,7 +64,7 @@ A aplicação oferece ferramentas para adicionar serviços, gerenciar reservas, 
 
 - Next.js 14.0
 - Shadcn
-- Tailwind css
+- Tailwind CSS
 - TypeScript
 
 ## Back:
@@ -79,4 +79,5 @@ A aplicação oferece ferramentas para adicionar serviços, gerenciar reservas, 
 
 # Diagramas UML
 [Diagrama de Classes](https://www.mermaidchart.com/raw/d224ec52-3b37-4178-a160-8a1dee9cac07?theme=light&version=v0.1&format=svg)
+[Diagrama de Fluxo](https://www.mermaidchart.com/raw/da24c3dd-ad45-4667-ae4a-b7468e2a24f3?theme=light&version=v0.1&format=svg)
 
