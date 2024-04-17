@@ -21,7 +21,7 @@ export class servicoService {
           throw new QueryError ('Barbearia não encontrada');
 
         const servicoExistente = await prisma.servico.findFirst({
-          where: { nome: body.nome }
+          where: { nome: body.nome  , barbeariaId: barbearia.id }
         });
 
         if(servicoExistente)
