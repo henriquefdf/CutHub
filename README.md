@@ -58,7 +58,7 @@ A aplicação oferece ferramentas para adicionar serviços, gerenciar reservas, 
 # Kanban
 [Link do Kanban](https://hill-baboon-44e.notion.site/Kanban-CutHub-cff5e7e939be4874a8adb803ac55cd1f)
 
-#Versão Revisada do Backlog da Sprint
+# Versão Revisada do Backlog da Sprint
 
 Em relação ao planejamento inicial, a maior parte das tasks foi implementada. No entanto, ficou faltando a criação, no front-end, das telas de fluxo da barbearia. Portanto, em um projeto real, essa feature ficaria para a Sprint 2. O backlog da Sprint atualizado está no mesmo link de Kanban.
 
